@@ -2,26 +2,39 @@
 
 import useGenerateAnswer from "@/hooks/GenerateAnswer";
 
+import { FaArrowRight } from "react-icons/fa";
+
 export default function Chatbot() {
-    
-  const { handleClick, isStreaming, answer, prompt, setPrompt } = useGenerateAnswer();
+  const { handleClick, isStreaming, answer, prompt, setPrompt, chats } =
+    useGenerateAnswer();
 
   return (
-    <div className="flex flex-col min-h-screen min-w-full justify-center items-center">
-      <div className="w-[80vw] ">{answer}</div>
-      <div className="flex">
+    <div className="flex flex-col justify-center min-h-screen min-w-full items-center text-white">
+      {chats?.map((e, i) => {
+        return (
+          <div key={i} className="flex flex-col w-[80vw] my-7">
+            <div className="font-bold text-3xl">{e.prompt}</div>
+            <div className="rounded-lg w-[80vw] p-5 h-auto bg-[#1E1E1E] m-8">{e.answer}</div>
+            <hr></hr>
+          </div>
+        );
+      })}
+      {isStreaming && <div className="w-[80vw] rounded-lg p-5 h-auto bg-[#1E1E1E] m-8 ">{answer}</div>}
+
+      <div className="flex justify-between border-2 border-orange-500 w-[70vw] h-[5vw] rounded-lg">
         <input
           onChange={(e) => setPrompt(e.target.value)}
           value={prompt}
+          className="bg-transparent focus:outline-none w-full ml-4"
           placeholder="Enter your prompt"
         />
 
         <button
           onClick={handleClick}
           disabled={prompt === "" || isStreaming}
-          className="border-2 disabled:opacity-20  border-orange-500 h-12 w-14 hover:bg-orange-500 active:scale-95  duration-200 "
+          className=" disabled:opacity-20 overflow-hidden duration-100 active:scale-95 mr-5"
         >
-          chat
+          <FaArrowRight className="h-8 w-8  text-[#F37022] rounded-full duration-200 hover:text-white hover:bg-orange-500" />
         </button>
       </div>
     </div>

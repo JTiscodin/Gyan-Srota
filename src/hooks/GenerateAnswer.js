@@ -1,19 +1,28 @@
 import { useState, useRef } from "react";
 
+import examples from "@/app/chatbot/examples";
+
 export default function useGenerateAnswer() {
   var longString =
-    "The sun cast its golden rays across the tranquil meadow, illuminating the lush green grass and delicate wildflowers that swayed gently in the soft breeze. Birds chirped melodiously in the nearby trees, adding to the symphony of nature's song. A babbling brook meandered through the landscape, its clear waters reflecting the vibrant colors of the surrounding foliage. It was a scene of pure serenity, a sanctuary where one could escape the chaos of the world and find solace in the embrace of Mother Nature.";
+    examples[Math.floor(Math.random() * examples.length)] || examples[0];
 
   const [isStreaming, setIsStreaming] = useState(false);
+
+  const [chats, setChats] = useState([]);
 
   const [prompt, setPrompt] = useState("");
 
   const [answer, setAnswer] = useState("");
 
-  let i = useRef(0);
+  let i = useRef(-10);
   let intervalId = useRef(null);
 
   const handleClick = () => {
+
+    //setting the value of i to -10, to start from the beginning of the string
+    i.current = -10;
+
+
     setIsStreaming(true);
     //Splitting the long string into individual characters
     let reply = longString.split("");
@@ -33,10 +42,20 @@ export default function useGenerateAnswer() {
       if (i.current > reply.length) {
         clearInterval(intervalId.current);
         setIsStreaming(false);
-        console.log("cleared");
+        setChats((prev) => [...prev, { prompt, answer: longString }]);
+        setPrompt("");
+        setAnswer("");
       }
     }, 20);
   };
 
-  return { handleClick, isStreaming, answer, prompt, setPrompt };
+  return {
+    handleClick,
+    isStreaming,
+    answer,
+    prompt,
+    setPrompt,
+    setAnswer,
+    chats,
+  };
 }
