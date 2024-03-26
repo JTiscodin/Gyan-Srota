@@ -21,7 +21,7 @@ export default function Chatbot() {
       })}
       {isStreaming && <div className="w-[80vw] rounded-lg p-5 h-auto bg-[#1E1E1E] m-8 ">{answer}</div>}
 
-      <div className="flex justify-between border-2 border-orange-500 w-[70vw] h-[5vw] rounded-lg">
+      <form className="flex justify-between border-2 border-orange-500 w-[70vw] h-[5vw] rounded-lg">
         <input
           onChange={(e) => setPrompt(e.target.value)}
           value={prompt}
@@ -36,7 +36,7 @@ export default function Chatbot() {
         >
           <FaArrowRight className="h-8 w-8  text-[#F37022] rounded-full duration-200 hover:text-white hover:bg-orange-500" />
         </button>
-      </div>
+      </form>
     </div>
   );
 }
