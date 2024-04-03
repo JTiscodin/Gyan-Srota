@@ -1,10 +1,11 @@
 import { useState, useRef } from "react";
+import axios from "axios";
 
 import examples from "@/app/chatbot/examples";
 
 export default function useGenerateAnswer() {
-  var longString =
-    examples[Math.floor(Math.random() * examples.length)] || examples[0];
+
+  const [isLoading, setIsLoading] = useState(false)
 
   const [isStreaming, setIsStreaming] = useState(false);
 
@@ -17,15 +18,24 @@ export default function useGenerateAnswer() {
   let i = useRef(-10);
   let intervalId = useRef(null);
 
-  const handleClick = () => {
+  const handleClick = async (e) => {
+    
+    e.preventDefault();
 
+    setIsLoading(true)
+
+    let response = await axios.post("http://localhost:5000/ask", {
+      prompt: prompt,
+    });
+
+    setIsLoading(false)
+    
+    setIsStreaming(true);
     //setting the value of i to -10, to start from the beginning of the string
     i.current = -10;
 
-
-    setIsStreaming(true);
     //Splitting the long string into individual characters
-    let reply = longString.split("");
+    let reply = response.data.answer.split("");
 
     //Setting interval to stream the answer
     intervalId.current = setInterval(() => {
@@ -42,11 +52,11 @@ export default function useGenerateAnswer() {
       if (i.current > reply.length) {
         clearInterval(intervalId.current);
         setIsStreaming(false);
-        setChats((prev) => [...prev, { prompt, answer: longString }]);
+        setChats((prev) => [...prev, { prompt, answer: response.data.answer }]);
         setPrompt("");
         setAnswer("");
       }
-    }, 20);
+    }, 200);
   };
 
   return {
@@ -57,5 +67,6 @@ export default function useGenerateAnswer() {
     setPrompt,
     setAnswer,
     chats,
+    isLoading
   };
 }
