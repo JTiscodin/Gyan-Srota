@@ -4,8 +4,7 @@ import axios from "axios";
 import examples from "@/app/chatbot/examples";
 
 export default function useGenerateAnswer() {
-
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   const [isStreaming, setIsStreaming] = useState(false);
 
@@ -19,17 +18,16 @@ export default function useGenerateAnswer() {
   let intervalId = useRef(null);
 
   const handleClick = async (e) => {
-    
     e.preventDefault();
 
-    setIsLoading(true)
+    setIsLoading(true);
 
-    let response = await axios.post("http://localhost:5000/ask", {
+    let response = await axios.post("http://127.0.0.1:5000/ask", {
       prompt: prompt,
     });
 
-    setIsLoading(false)
-    
+    setIsLoading(false);
+
     setIsStreaming(true);
     //setting the value of i to -10, to start from the beginning of the string
     i.current = -10;
@@ -56,7 +54,7 @@ export default function useGenerateAnswer() {
         setPrompt("");
         setAnswer("");
       }
-    }, 200);
+    }, 20);
   };
 
   return {
@@ -67,6 +65,6 @@ export default function useGenerateAnswer() {
     setPrompt,
     setAnswer,
     chats,
-    isLoading
+    isLoading,
   };
 }
