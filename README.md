@@ -32,7 +32,7 @@ Routes for the project will be
 /gyansrota (authorized route) => for the chat page
 ```
 
-##Demo / Example
+## Demo / Example
 
 https://github.com/JTiscodin/Gyan-Srota-frontend/assets/113091818/358c3570-911d-4d4a-9de8-2e3e848bd59f
 
