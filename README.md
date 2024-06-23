@@ -29,7 +29,7 @@ Routes for the project will be
 
 /login => for the login or register route
 
-/gyansrota (authorized route) => for the chat page
+/chatbot (authorized route) => for the chat page
 ```
 
 ## Demo / Example
