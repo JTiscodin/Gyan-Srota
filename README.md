@@ -15,7 +15,7 @@ bun dev
 ```
 
 
-# Gyan Srota - Frontend
+# Gyan Srota
 
 
 
@@ -32,7 +32,10 @@ Routes for the project will be
 /chatbot (authorized route) => for the chat page
 ```
 
-## Demo / Example
+## Demo Prompts
 
-https://github.com/JTiscodin/Gyan-Srota-frontend/assets/113091818/358c3570-911d-4d4a-9de8-2e3e848bd59f
+
+![Gyan Srota](https://github.com/user-attachments/assets/c5837031-e2a3-4062-a26a-2e021be9e428)
+
+
 
